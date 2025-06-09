@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BazaarX – Interactive Online Bazaar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">BazaarX</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">Deals</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="search-cart">
+      <input type="text" placeholder="Search..." />
+      <span class="cart-icon">🛒</span>
+    </div>
+  </header>
+
+  <section class="hero-banner fade-in">
+    <div class="hero-content">
+      <h1>Welcome to BazaarX</h1>
+      <p>All your favorite brands in one digital marketplace.</p>
+      <a href="#" class="cta-button">Start Shopping</a>
+    </div>
+  </section>
+
+  <section class="categories-tabs fade-in-up">
+    <button class="tab active" onclick="filterCategory('all')">All</button>
+    <button class="tab" onclick="filterCategory('electronics')">Electronics</button>
+    <button class="tab" onclick="filterCategory('fashion')">Fashion</button>
+    <button class="tab" onclick="filterCategory('home')">Home & Living</button>
+    <button class="tab" onclick="filterCategory('beauty')">Beauty</button>
+  </section>
+
+  <section class="product-section">
+    <div class="product-grid">
+      <div class="product-card fade-in-up" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1580894908360-658dad3f9fa4" alt="Smartphone" />
+        <h3>Smartphone Pro X</h3>
+        <p>$899</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
+      <div class="product-card fade-in-up" data-category="fashion">
+        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="Sneakers" />
+        <h3>Street Sneakers</h3>
+        <p>$119</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
+      <div class="product-card fade-in-up" data-category="home">
+        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914" alt="Sofa Chair" />
+        <h3>Modern Sofa Chair</h3>
+        <p>$299</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
+      <div class="product-card fade-in-up" data-category="beauty">
+        <img src="https://images.unsplash.com/photo-1600185365085-43f962bc7d3d" alt="Face Serum" />
+        <h3>Glow Face Serum</h3>
+        <p>$49</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
+      <div class="product-card fade-in-up" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1549921296-3a6b1cbd6c61" alt="Wireless Earbuds" />
+        <h3>Wireless Earbuds</h3>
+        <p>$139</p>
+        <button onclick="addToCart(this)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 BazaarX. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Animate on scroll
+    const faders = document.querySelectorAll('.fade-in-up');
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("appear");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.2 });
+
+    faders.forEach(el => appearOnScroll.observe(el));
+
+    // Category filtering
+    function filterCategory(category) {
+      document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.querySelectorAll('.product-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Add to cart animation
+    function addToCart(button) {
+      button.innerText = "✓ Added";
+      button.style.background = "#2ecc71";
+      setTimeout(() => {
+        button.innerText = "Add to Cart";
+        button.style.background = "#000";
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
